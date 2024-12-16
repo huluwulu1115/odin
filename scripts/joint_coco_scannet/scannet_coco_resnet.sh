@@ -1,15 +1,15 @@
 set -e
 
 export DETECTRON2_DATASETS="/projects/katefgroup/language_grounding/SEMSEG_100k"
-export DETECTRON2_DATASETS_2D="/projects/katefgroup/datasets"
+export DETECTRON2_DATASETS_2D="/home/ubuntu/dataset"
 SCANNET_DATA_DIR="/path/to/train_validation_database.yaml"
 
-OMP_NUM_THREADS=8 CUDA_VISIBLE_DEVICES=0,1 python train_odin.py  --dist-url='tcp://127.0.0.1:7292' --num-gpus 2 --resume  --config-file configs/scannet_context/3d.yaml \
+OMP_NUM_THREADS=8 CUDA_VISIBLE_DEVICES=0,1 python train_odin.py  --eval-only --dist-url='tcp://127.0.0.1:7292' --num-gpus 2 --resume  --config-file configs/scannet_context/3d.yaml \
 OUTPUT_DIR /projects/katefgroup/language_grounding/bdetr2/arxiv_reproduce/scannet_coco_joint SOLVER.IMS_PER_BATCH 6 \
 SOLVER.CHECKPOINT_PERIOD 4000 TEST.EVAL_PERIOD 4000 \
 INPUT.FRAME_LEFT 12 INPUT.FRAME_RIGHT 12 INPUT.SAMPLING_FRAME_NUM 25 \
 INPUT.FRAME_LEFT_2D 0 INPUT.FRAME_RIGHT_2D 0 INPUT.SAMPLING_FRAME_NUM_2D 1 \
-MODEL.WEIGHTS '/projects/katefgroup/language_grounding/odin_arxiv/scannet_resnet_47.8_73.3_32k_1.5k.pth' \
+MODEL.WEIGHTS '/home/ubuntu/checkpoints/scannet_resnet_47.8_73.3_32k_1.5k.pth' \
 SOLVER.BASE_LR 1e-4 \
 INPUT.IMAGE_SIZE 256 \
 MODEL.CROSS_VIEW_CONTEXTUALIZE True \
